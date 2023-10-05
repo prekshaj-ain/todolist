@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+      integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <aside class="all-tasks">
+        <ul class="task-list">
+          <li class="task-item">
+            <i class="bi bi-list-task"></i>
+            <p>Grocery</p>
+          </li>
+          <li class="task-item">
+            <span><i class="bi bi-list-task"></i></span>
+            <p>Grocery</p>
+          </li>
+          <li class="task-item">
+            <span><i class="bi bi-list-task"></i></span>
+            <p>Grocery</p>
+          </li>
+          <li class="active task-item">
+            <span><i class="bi bi-list-task"></i></span>
+            <p>Work</p>
+          </li>
+          <li class="task-item">
+            <span><i class="bi bi-list-task"></i></span>
+            <p>Cleaning</p>
+          </li>
+        </ul>
+        <form action="">
+          <input
+            type="text"
+            class="new list"
+            placeholder="New List"
+            aria-label="new list name"
+          />
+          <button class="btn list" aria-label="create new List">+</button>
+        </form>
+      </aside>
+      <main class="todo-list">
+        <div class="todo-header">
+          <h2>Work</h2>
+        </div>
+        <div class="todo-body">
+          <div class="tasks">
+            <div class="task">
+              <input type="checkbox" id="task-1" />
+              <label for="task-1">Practice sliding window</label>
+            </div>
+            <div class="task">
+              <input type="checkbox" id="task-2" />
+              <label for="task-1">Practice sliding window</label>
+            </div>
+            <div class="task">
+              <input type="checkbox" id="task-3" />
+              <label for="task-1">Practice sliding window</label>
+            </div>
+          </div>
+          <div class="new-task-creator">
+            <form action="">
+              <input
+                type="text"
+                class="new task"
+                placeholder="New Task"
+                aria-label="new task name"
+              />
+              <button class="btn task" aria-label="create new task">+</button>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
