@@ -1,11 +1,16 @@
 const listContainer = document.querySelector("[data-lists]");
 const newListForm = document.querySelector("[data-new-list-form]");
 const newListInput = document.querySelector("[data-new-list-input]");
+const deleteListBtn = document.querySelector("[data-delete-list]");
+
+const listDisplayContainer = document.querySelector(
+  "[data-list-display-container]"
+);
 
 const LOCAL_STORAGE_LIST_KEY = "task.lists";
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = "task.selectedListId";
 
-const lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
+let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
 let selectedListId = localStorage.getItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY);
 
 listContainer.addEventListener("click", (e) => {
@@ -14,6 +19,13 @@ listContainer.addEventListener("click", (e) => {
   } else if (e.target.parentElement.tagName.toLowerCase() == "li") {
     selectedListId = e.target.parentElement.dataset.listId;
   }
+  saveAndRender();
+});
+
+deleteListBtn.addEventListener("click", (e) => {
+  lists = lists.filter((list) => list.id !== selectedListId);
+
+  selectedListId = null;
   saveAndRender();
 });
 
@@ -46,6 +58,15 @@ function save() {
 }
 function render() {
   clearElement(listContainer);
+  renderLists();
+  if (selectedListId == null) {
+    listDisplayContainer.style.display = "none";
+  } else {
+    listDisplayContainer.style.display = "";
+  }
+}
+
+function renderLists() {
   lists.forEach((list) => {
     const listItem = document.createElement("li");
     listItem.classList.add("task-item");

@@ -22,16 +22,19 @@ body {
   flex-direction: column;
   justify-content: space-between;
 }
-.container > .todo-list {
+.container > .todo-list-container {
   flex-basis: 80%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   margin: 10px;
   padding: 60px;
   border-radius: 10px;
   background-color: rgb(247, 247, 247);
   border: 2px solid white;
+}
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
 }
 
 .task-list {
@@ -45,10 +48,28 @@ body {
   font-size: 0.85rem;
   gap: 10px;
   color: rgb(109, 108, 108);
+  cursor: pointer;
 }
-.active {
+.task-item:hover {
+  color: black;
+}
+
+.active-list {
   color: black;
   font-weight: 700;
+}
+
+.todo-header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.icon {
+  transform: scale(1);
+  transition: transform 300ms ease-in-out;
+}
+.icon:hover {
+  transform: scale(1.1);
 }
 
 .todo-body {
@@ -66,9 +87,7 @@ form {
   outline: none;
   border: none;
   background-color: transparent;
-  font-size: larger;
   font-weight: 600;
-  order: 1;
   cursor: pointer;
 }
 .new {
@@ -83,6 +102,10 @@ form {
 }
 .new:focus::placeholder {
   opacity: 0.2;
+}
+
+.btn.list {
+  font-size: 1rem;
 }
 .btn.task {
   font-size: 1.5rem;
