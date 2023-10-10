@@ -1,17 +1,22 @@
 const listContainer = document.querySelector("[data-lists]");
 const newListForm = document.querySelector("[data-new-list-form]");
 const newListInput = document.querySelector("[data-new-list-input]");
+const newTaskForm = document.querySelector("[data-new-task-form]");
+const newTaskInput = document.querySelector("[data-new-task-input]");
 const deleteListBtn = document.querySelector("[data-delete-list]");
 
 const listDisplayContainer = document.querySelector(
   "[data-list-display-container]"
 );
+const listTitleElement = document.querySelector("[data-list-title]");
+const taskContainer = document.querySelector("[data-tasks]");
 
 const LOCAL_STORAGE_LIST_KEY = "task.lists";
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = "task.selectedListId";
 
 let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
-let selectedListId = localStorage.getItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY);
+let selectedListId =
+  localStorage.getItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY) || null;
 
 listContainer.addEventListener("click", (e) => {
   if (e.target.tagName.toLowerCase() == "li") {
@@ -32,12 +37,32 @@ deleteListBtn.addEventListener("click", (e) => {
 newListForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const listName = newListInput.value;
-  if (listName == null || listName == "") return;
+  if (listName == null || listName.trim() == "") return;
   const list = createList(listName);
   newListInput.value = "";
   lists.push(list);
   saveAndRender();
 });
+
+newTaskForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const taskName = newTaskInput.value;
+  if (taskName == null || taskName.trim() == "") return;
+  const task = createTask(taskName);
+  newTaskInput.value = "";
+  const selectedList = lists.find((list) => list.id == selectedListId);
+  selectedList.tasks.push(task);
+  saveAndRender();
+});
+
+function createTask(name) {
+  const newTask = {
+    id: Date.now().toString(),
+    name,
+    completed: false,
+  };
+  return newTask;
+}
 
 function createList(name) {
   const newList = {
@@ -59,11 +84,29 @@ function save() {
 function render() {
   clearElement(listContainer);
   renderLists();
+  const selectedList = lists.find((list) => list.id == selectedListId);
   if (selectedListId == null) {
     listDisplayContainer.style.display = "none";
   } else {
     listDisplayContainer.style.display = "";
+    listTitleElement.innerText = selectedList.name;
+    clearElement(taskContainer);
+    renderTasks(selectedList.tasks);
   }
+}
+function renderTasks(tasks) {
+  tasks.forEach((task) => {
+    const taskElement = document.createElement("div");
+    taskElement.classList.add("task");
+    const inputElement = document.createElement("input");
+    inputElement.type = "checkbox";
+    inputElement.id = task.id;
+    const labelElement = document.createElement("label");
+    labelElement.for = task.id;
+    labelElement.innerText = task.name;
+    taskElement.append(inputElement, labelElement);
+    taskContainer.appendChild(taskElement);
+  });
 }
 
 function renderLists() {
