@@ -10,6 +10,7 @@ const listDisplayContainer = document.querySelector(
 );
 const listTitleElement = document.querySelector("[data-list-title]");
 const taskContainer = document.querySelector("[data-tasks]");
+const taskTemplate = document.getElementById("task-template");
 
 const LOCAL_STORAGE_LIST_KEY = "task.lists";
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = "task.selectedListId";
@@ -25,6 +26,17 @@ listContainer.addEventListener("click", (e) => {
     selectedListId = e.target.parentElement.dataset.listId;
   }
   saveAndRender();
+});
+
+taskContainer.addEventListener("click", (e) => {
+  if (e.target.tagName.toLowerCase() == "input") {
+    const selectedList = lists.find((list) => list.id === selectedListId);
+    const selectedTask = selectedList.tasks.find(
+      (task) => task.id === e.target.id
+    );
+    selectedTask.complete = e.target.checked;
+    saveAndRender();
+  }
 });
 
 deleteListBtn.addEventListener("click", (e) => {
@@ -96,15 +108,13 @@ function render() {
 }
 function renderTasks(tasks) {
   tasks.forEach((task) => {
-    const taskElement = document.createElement("div");
-    taskElement.classList.add("task");
-    const inputElement = document.createElement("input");
-    inputElement.type = "checkbox";
-    inputElement.id = task.id;
-    const labelElement = document.createElement("label");
-    labelElement.for = task.id;
-    labelElement.innerText = task.name;
-    taskElement.append(inputElement, labelElement);
+    const taskElement = document.importNode(taskTemplate.content, true);
+    const checkbox = taskElement.querySelector("input");
+    checkbox.id = task.id;
+    checkbox.checked = task.complete;
+    const label = taskElement.querySelector("label");
+    label.htmlFor = task.id;
+    label.append(task.name);
     taskContainer.appendChild(taskElement);
   });
 }

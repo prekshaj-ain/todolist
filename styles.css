@@ -87,12 +87,13 @@ body {
   padding: 10px;
   border-radius: 5px;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   color: currentColor;
   opacity: 70%;
+  cursor: pointer;
 }
-.task:hover {
-  background-color: rgb(247, 247, 247);
+.tasks > .task:hover {
+  background-color: rgb(240, 240, 240);
 }
 
 .task label {
