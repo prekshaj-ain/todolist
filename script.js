@@ -14,6 +14,7 @@ const taskTemplate = document.getElementById("task-template");
 const closeSidebar = document.querySelector("[data-close-sidebar]");
 const overlay = document.querySelector("[data-overlay]");
 const rightSidebar = document.querySelector("[data-right-sidebar]");
+const taskName = document.querySelector("[data-task-name]");
 
 const LOCAL_STORAGE_LIST_KEY = "task.lists";
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = "task.selectedListId";
@@ -21,6 +22,23 @@ const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = "task.selectedListId";
 let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
 let selectedListId =
   localStorage.getItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY) || null;
+let selectedTaskId = null;
+
+taskName.addEventListener("keydown", (e) => {
+  if (e.key == "Enter") {
+    e.preventDefault();
+    const selectedList = lists.find((list) => list.id == selectedListId);
+    const selectedTask = selectedList.tasks.find(
+      (task) => task.id == selectedTaskId
+    );
+    if (taskName.innerText.trim() == "") {
+      taskName.innerText = selectedTask.name;
+    } else {
+      selectedTask.name = taskName.innerText;
+      saveAndRender();
+    }
+  }
+});
 
 listContainer.addEventListener("click", (e) => {
   if (e.target.tagName.toLowerCase() == "li") {
@@ -119,7 +137,7 @@ function renderTasks(tasks) {
     label.htmlFor = task.id;
     label.append(task.name);
     const button = taskElement.querySelector("button");
-    button.dataset.openSidebar = task.id;
+    button.dataset.taskInfo = task.id;
     taskContainer.appendChild(taskElement);
   });
 }
@@ -135,24 +153,28 @@ function renderLists() {
   });
 }
 
-function deleteTask(selectedTask) {
-  const parent = selectedTask.closest("[data-task-id]");
-  const { taskId } = parent.dataset;
+function deleteTask() {
   const selectedList = lists.find((list) => list.id == selectedListId);
-  selectedList.tasks = selectedList.tasks.filter((task) => task.id != taskId);
+  selectedList.tasks = selectedList.tasks.filter(
+    (task) => task.id != selectedTaskId
+  );
   closeSideBar();
   saveAndRender();
 }
 
 function openSideBar(selectedTask) {
+  selectedTaskId = selectedTask.dataset.taskInfo;
+  const selectedList = lists.find((list) => list.id == selectedListId);
+  const task = selectedList.tasks.find((task) => task.id == selectedTaskId);
   overlay.style.display = "block";
   rightSidebar.classList.remove("hide");
-  rightSidebar.dataset.taskId = selectedTask.dataset.openSidebar;
+  taskName.innerText = task.name;
 }
 
 function closeSideBar() {
   overlay.style.display = "none";
   rightSidebar.classList.add("hide");
+  selectedTaskId = null;
 }
 
 function clearElement(element) {
