@@ -11,8 +11,32 @@
     />
     <title>To Do List</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="menu.css" />
   </head>
   <body>
+    <div class="overlay" data-overlay></div>
+    <div class="hide right sidebar" data-right-sidebar>
+      <div class="content">
+        <header>
+          <i
+            class="bi bi-arrow-left"
+            data-close-sidebar
+            onclick="closeSideBar()"
+          ></i>
+          <span>Task Details</span>
+        </header>
+        <ul class="menu">
+          <li class="menu-item">
+            <i class="bi bi-pencil-square"></i>
+            <span>Edit Task</span>
+          </li>
+          <li class="menu-item delete" onclick="deleteTask(this)">
+            <i class="bi bi-trash"></i>
+            <span>Delete Task</span>
+          </li>
+        </ul>
+      </div>
+    </div>
     <div class="container">
       <aside class="all-tasks">
         <ul class="task-list" data-lists></ul>
@@ -80,8 +104,13 @@
     </div>
     <template id="task-template">
       <div class="task">
-        <input type="checkbox" />
-        <label><span class="custom-checkbox"></span></label>
+        <div>
+          <input type="checkbox" />
+          <label><span class="custom-checkbox"></span></label>
+        </div>
+        <button class="btn icon" onclick="openSideBar(this)">
+          <i class="bi bi-three-dots-vertical"></i>
+        </button>
       </div>
     </template>
   </body>

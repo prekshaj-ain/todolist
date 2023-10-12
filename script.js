@@ -11,6 +11,9 @@ const listDisplayContainer = document.querySelector(
 const listTitleElement = document.querySelector("[data-list-title]");
 const taskContainer = document.querySelector("[data-tasks]");
 const taskTemplate = document.getElementById("task-template");
+const closeSidebar = document.querySelector("[data-close-sidebar]");
+const overlay = document.querySelector("[data-overlay]");
+const rightSidebar = document.querySelector("[data-right-sidebar]");
 
 const LOCAL_STORAGE_LIST_KEY = "task.lists";
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = "task.selectedListId";
@@ -97,7 +100,7 @@ function render() {
   clearElement(listContainer);
   renderLists();
   const selectedList = lists.find((list) => list.id == selectedListId);
-  if (selectedListId === "null") {
+  if (selectedListId === "null" || selectedListId == null) {
     listDisplayContainer.style.display = "none";
   } else {
     listDisplayContainer.style.display = "";
@@ -115,6 +118,8 @@ function renderTasks(tasks) {
     const label = taskElement.querySelector("label");
     label.htmlFor = task.id;
     label.append(task.name);
+    const button = taskElement.querySelector("button");
+    button.dataset.openSidebar = task.id;
     taskContainer.appendChild(taskElement);
   });
 }
@@ -128,6 +133,26 @@ function renderLists() {
     listItem.innerHTML = `<i class="bi bi-list-task"></i><p>${list.name}</p>`;
     listContainer.appendChild(listItem);
   });
+}
+
+function deleteTask(selectedTask) {
+  const parent = selectedTask.closest("[data-task-id]");
+  const { taskId } = parent.dataset;
+  const selectedList = lists.find((list) => list.id == selectedListId);
+  selectedList.tasks = selectedList.tasks.filter((task) => task.id != taskId);
+  closeSideBar();
+  saveAndRender();
+}
+
+function openSideBar(selectedTask) {
+  overlay.style.display = "block";
+  rightSidebar.classList.remove("hide");
+  rightSidebar.dataset.taskId = selectedTask.dataset.openSidebar;
+}
+
+function closeSideBar() {
+  overlay.style.display = "none";
+  rightSidebar.classList.add("hide");
 }
 
 function clearElement(element) {

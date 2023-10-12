@@ -90,7 +90,8 @@ body {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   color: currentColor;
   opacity: 70%;
-  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
 }
 .tasks > .task:hover {
   background-color: rgb(240, 240, 240);
