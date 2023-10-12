@@ -57,6 +57,14 @@ header > i:hover {
 .menu > .menu-item:hover {
   background-color: rgba(212, 212, 212, 0.11);
 }
+.menu > .edit {
+  cursor: text;
+}
+.menu > .edit > div[contentEditable="true"] {
+  width: 100%;
+  border: none;
+  outline: none;
+}
 .menu > .delete {
   color: red;
 }

@@ -26,11 +26,10 @@
           <span>Task Details</span>
         </header>
         <ul class="menu">
-          <li class="menu-item">
-            <i class="bi bi-pencil-square"></i>
-            <span>Edit Task</span>
+          <li class="menu-item edit">
+            <div data-task-name contenteditable="true"></div>
           </li>
-          <li class="menu-item delete" onclick="deleteTask(this)">
+          <li class="menu-item delete" onclick="deleteTask()">
             <i class="bi bi-trash"></i>
             <span>Delete Task</span>
           </li>
