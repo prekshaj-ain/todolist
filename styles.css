@@ -69,18 +69,15 @@ body {
   justify-content: space-between;
 }
 .todo-header > * {
-  gap: 15px;
   display: flex;
+}
+.action {
+  display: flex;
+  gap: 10px;
 }
 
 .view > * {
-  display: flex;
-  gap: 5px;
   padding: 10px;
-}
-.view > *:hover {
-  background-color: white;
-  border-radius: 10px;
 }
 .icon {
   transform: scale(1);
@@ -172,8 +169,8 @@ form {
   outline: none;
   border: none;
   background-color: transparent;
-  font-weight: 600;
   cursor: pointer;
+  display: block;
 }
 .new {
   border: none;
@@ -198,4 +195,47 @@ form {
 .new.task {
   width: 100%;
   font-size: 1.2rem;
+}
+
+/* dropdowns */
+.dropdown {
+  position: relative;
+}
+.dropdown > button {
+  display: flex;
+  gap: 5px;
+  border-radius: 5px;
+  padding: 10px;
+}
+.dropdown > button:hover {
+  background-color: white;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  background-color: white;
+  z-index: 10;
+  width: 10rem;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: none;
+  transform: translate(-50%);
+}
+.dropdown-menu.active {
+  display: block;
+}
+.dropdown-menu > p {
+  padding: 10px;
+  border-bottom: 0.5px solid rgb(187, 187, 187);
+  text-align: center;
+  font-weight: 600;
+}
+.dropdown-menu > button {
+  padding-inline: 10px;
+  padding-block: 5px;
+  width: 100%;
+}
+.dropdown-menu > button:hover {
+  background-color: #e4e4e4;
 }
