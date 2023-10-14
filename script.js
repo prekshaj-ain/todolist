@@ -16,6 +16,8 @@ const overlay = document.querySelector("[data-overlay]");
 const rightSidebar = document.querySelector("[data-right-sidebar]");
 const taskName = document.querySelector("[data-task-name]");
 const clearAllCompleted = document.querySelector("[data-clear-all-completed]");
+const dropdownButtons = document.querySelectorAll("[data-dropdown-button]");
+const dropdownMenus = document.querySelectorAll("[data-dropdown-menu]");
 
 const LOCAL_STORAGE_LIST_KEY = "task.lists";
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = "task.selectedListId";
@@ -193,5 +195,46 @@ function clearElement(element) {
     element.removeChild(element.firstChild);
   }
 }
+
+dropdownButtons.forEach((dropdownButton) => {
+  dropdownButton.addEventListener("click", (e) => {
+    const dropdown = e.target.parentElement.closest(".dropdown");
+    const menu = dropdown.querySelector("[data-dropdown-menu]");
+    menu.classList.toggle("active");
+  });
+});
+
+// Close the dropdowns when the user clicks anywhere outside of them or the menu items
+document.addEventListener("click", function (event) {
+  if (
+    event.target.parentElement.closest(".dropdown-menu") ||
+    !event.target.parentElement.closest(".dropdown")
+  ) {
+    dropdownMenus.forEach(function (list) {
+      list.classList.remove("active");
+    });
+  }
+});
+
+dropdownMenus.forEach((menu) => {
+  menu.addEventListener("click", (e) => {
+    clearElement(taskContainer);
+    if (e.target.innerText === "All Tasks") {
+      render();
+    } else if (e.target.innerText === "Completed Tasks") {
+      const selectedList = lists.find((list) => list.id === selectedListId);
+      const tasks = selectedList.tasks.filter(
+        (task) => task.completed === true
+      );
+      renderTasks(tasks);
+    } else if (e.target.innerText === "Active Tasks") {
+      const selectedList = lists.find((list) => list.id === selectedListId);
+      const tasks = selectedList.tasks.filter(
+        (task) => task.completed === false
+      );
+      renderTasks(tasks);
+    }
+  });
+});
 
 render();
