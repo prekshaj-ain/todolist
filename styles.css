@@ -65,8 +65,22 @@ body {
 
 .todo-header {
   display: flex;
-  gap: 20px;
   align-items: center;
+  justify-content: space-between;
+}
+.todo-header > * {
+  gap: 15px;
+  display: flex;
+}
+
+.view > * {
+  display: flex;
+  gap: 5px;
+  padding: 10px;
+}
+.view > *:hover {
+  background-color: white;
+  border-radius: 10px;
 }
 .icon {
   transform: scale(1);
@@ -136,6 +150,17 @@ body {
 }
 [type="checkbox"]:checked + label {
   opacity: 50%;
+}
+
+.completed-tasks > header {
+  display: flex;
+  gap: 10px;
+  padding-block: 15px;
+  cursor: pointer;
+}
+
+.completed-tasks > header .completed-tasks > header > p {
+  font-weight: 600;
 }
 
 form {

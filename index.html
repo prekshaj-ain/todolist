@@ -58,13 +58,28 @@
       <main class="todo-list-container">
         <div class="todo-list" data-list-display-container>
           <div class="todo-header">
-            <h2 data-list-title></h2>
-            <button class="btn icon">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="btn icon" data-delete-list>
-              <i class="bi bi-trash" style="color: red"></i>
-            </button>
+            <div class="action">
+              <h2 data-list-title></h2>
+              <button class="btn icon">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+              <button class="btn icon" data-delete-list>
+                <i class="bi bi-trash" style="color: red"></i>
+              </button>
+            </div>
+            <div class="view">
+              <button class="btn">
+                <i class="bi bi-arrow-down-up"></i>
+                <p>Sort</p>
+              </button>
+              <button class="btn">
+                <i class="bi bi-funnel"></i>
+                <p>Filter</p>
+              </button>
+              <button class="btn" data-clear-all-completed>
+                Clear All Completed
+              </button>
+            </div>
           </div>
           <div class="todo-body">
             <div class="tasks" data-tasks></div>

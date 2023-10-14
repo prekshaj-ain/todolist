@@ -15,6 +15,7 @@ const closeSidebar = document.querySelector("[data-close-sidebar]");
 const overlay = document.querySelector("[data-overlay]");
 const rightSidebar = document.querySelector("[data-right-sidebar]");
 const taskName = document.querySelector("[data-task-name]");
+const clearAllCompleted = document.querySelector("[data-clear-all-completed]");
 
 const LOCAL_STORAGE_LIST_KEY = "task.lists";
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = "task.selectedListId";
@@ -23,6 +24,14 @@ let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
 let selectedListId =
   localStorage.getItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY) || null;
 let selectedTaskId = null;
+
+clearAllCompleted.addEventListener("click", (e) => {
+  const selectedList = lists.find((list) => list.id == selectedListId);
+  selectedList.tasks = selectedList.tasks.filter(
+    (task) => task.completed === false
+  );
+  saveAndRender();
+});
 
 taskName.addEventListener("keydown", (e) => {
   if (e.key == "Enter") {
