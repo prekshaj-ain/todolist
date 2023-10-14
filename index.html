@@ -37,8 +37,13 @@
       </div>
     </div>
     <div class="container">
-      <aside class="all-tasks">
-        <ul class="task-list" data-lists></ul>
+      <aside class="all-Lists">
+        <ul class="task-list" data-lists>
+          <li class="task-item">
+            <i class="bi bi-list-task"></i>
+            <p>${list.name}</p>
+          </li>
+        </ul>
         <form action="" data-new-list-form>
           <input
             type="text"
@@ -53,7 +58,7 @@
       <main class="todo-list-container">
         <div class="todo-list" data-list-display-container>
           <div class="todo-header">
-            <h2 data-list-title>Work</h2>
+            <h2 data-list-title></h2>
             <button class="btn icon">
               <i class="bi bi-pencil-square"></i>
             </button>
@@ -62,29 +67,7 @@
             </button>
           </div>
           <div class="todo-body">
-            <div class="tasks" data-tasks>
-              <div class="task">
-                <input type="checkbox" id="task-1" />
-                <label for="task-1"
-                  ><span class="custom-checkbox"></span>Practice sliding
-                  window</label
-                >
-              </div>
-              <div class="task">
-                <input type="checkbox" id="task-2" />
-                <label for="task-2"
-                  ><span class="custom-checkbox"></span>Practice sliding
-                  window</label
-                >
-              </div>
-              <div class="task">
-                <input type="checkbox" id="task-3" />
-                <label for="task-3"
-                  ><span class="custom-checkbox"></span>Practice sliding
-                  window</label
-                >
-              </div>
-            </div>
+            <div class="tasks" data-tasks></div>
             <div class="new-task-creator">
               <form action="" data-new-task-form>
                 <input

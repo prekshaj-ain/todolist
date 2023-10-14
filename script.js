@@ -55,7 +55,7 @@ taskContainer.addEventListener("click", (e) => {
     const selectedTask = selectedList.tasks.find(
       (task) => task.id === e.target.id
     );
-    selectedTask.complete = e.target.checked;
+    selectedTask.completed = e.target.checked;
     saveAndRender();
   }
 });
@@ -132,7 +132,7 @@ function renderTasks(tasks) {
     const taskElement = document.importNode(taskTemplate.content, true);
     const checkbox = taskElement.querySelector("input");
     checkbox.id = task.id;
-    checkbox.checked = task.complete;
+    checkbox.checked = task.completed;
     const label = taskElement.querySelector("label");
     label.htmlFor = task.id;
     label.append(task.name);
@@ -144,11 +144,13 @@ function renderTasks(tasks) {
 
 function renderLists() {
   lists.forEach((list) => {
+    const remainingTask = list.tasks.filter((task) => task.completed === false);
+    const count = remainingTask.length;
     const listItem = document.createElement("li");
     listItem.classList.add("task-item");
     if (selectedListId === list.id) listItem.classList.add("active-list");
     listItem.dataset.listId = list.id;
-    listItem.innerHTML = `<i class="bi bi-list-task"></i><p>${list.name}</p>`;
+    listItem.innerHTML = `<i class="bi bi-list-task"></i><p>${list.name}</p><p>${count}</p>`;
     listContainer.appendChild(listItem);
   });
 }

@@ -15,7 +15,7 @@ body {
   display: flex;
   height: 100vh;
 }
-.container > .all-tasks {
+.container > .all-Lists {
   flex-basis: 20%;
   padding: 20px;
   display: flex;
@@ -49,6 +49,10 @@ body {
   gap: 10px;
   color: rgb(109, 108, 108);
   cursor: pointer;
+}
+.task-item > *:last-child {
+  flex-grow: 1;
+  text-align: end;
 }
 .task-item:hover {
   color: black;
